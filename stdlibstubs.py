@@ -2,7 +2,7 @@ __author__ = 'bmiller'
 
 import os, shutil
 
-mymodules = ['document', 'math', 'operator', 'processing', 'random', 're', 'time', 'test', 'turtle', 'unittest', 'urllib', 'webgl']
+mymodules = ['document', 'math', 'operator', 'processing', 'random', 're', 'time', 'test', 'turtle', 'unittest', 'urllib', 'webgl', 'numpy', 'pygame']
 p26root = '/System/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/'
 
 
