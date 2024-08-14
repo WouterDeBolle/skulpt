@@ -37,23 +37,30 @@
     <div class="col-md-5"></div>
     <a class="btn btn-primary col-md-2" id="runbutton">Run code<span class="glyphicon glyphicon-play"
                                                                      aria-hidden="true"></span></a>
+    <a class="btn btn-primary col-md-2" id="resetbutton">Clear output<span class="glyphicon glyphicon-play"
+                                                                     aria-hidden="true"></span></a>
+
 <!--    <div class="container">-->
 <!--        <div class="btn-group">-->
 
-<!--            <div class="btn-group dropup">-->
-<!--                <button type="button" class="btn btn-small btn-default dropdown-toggle" data-toggle="dropdown">-->
-<!--                    Select an example-->
-<!--                    <span class="caret"></span>-->
-<!--                </button>-->
-<!--                <ul class="dropdown-menu" role="menu">-->
+    </div>
+    <div class="container">
+        <div class="btn-group">
+
+            <div class="btn-group dropup">
+                <button type="button" class="btn btn-small btn-default dropdown-toggle" data-toggle="dropdown">
+                    Select an example
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
 <!--                    <li><a href=".?snake.py">Snake</a></li>-->
-<!--                    <li><a href=".?spirograph.py">Spirograph</a></li>-->
+                    <li><a href=".?spirograph.py">Spirograph</a></li>
 <!--                    <li><a href=".?spaceship.py">Spaceship</a></li>-->
-<!--                    <li><a href=".?draw.py">Drawing</a></li>-->
-<!--                </ul>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+                    <li><a href=".?draw.py">Drawing</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
     <div class="col-md-5"></div>
 
 </div>
@@ -349,8 +356,11 @@
             Sk.quitHandler = function () {
                 $('.modal').modal('hide');
             };
-            addModal();
+
             var prog = ace.edit("editor").getValue();
+            if (prog.includes("pygame")){
+                addModal();
+            }
 
             let myPromise = Sk.misceval.asyncToPromise(function () {
                 return Sk.importMainWithBody("<stdin>", false, prog, true)
@@ -372,10 +382,13 @@
         $("#runbutton").click(function () {
             runCode();
         });
+        $("#resetbutton").click(function (){
+            clearOutput();
+        })
 
-        var sourcePath = "./test/snake.py";
+        var sourcePath = "./examples/snake.py";
         if (window.location.search.substring(1).length > 0) {
-            sourcePath = "./test/" + window.location.search.substring(1)
+            sourcePath = "./examples/" + window.location.search.substring(1)
         }
         $.get(sourcePath, function (data) {
             editor.setValue(data, -1);
