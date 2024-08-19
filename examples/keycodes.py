@@ -28,6 +28,4 @@ while not game_over:
             venster.blit(tekst, (breedte // 2 - tekst.get_width() // 2, hoogte // 2))
             pygame.display.update()
 
-    pygame.display.update()
-
 pygame.quit()
