@@ -1,0 +1,234 @@
+
+> skulpt@1.2.0 start
+> node support/run/runfile.js py2 myabs.py
+
+Using skulpt.min.js
+-----
+print abs(-1.0)
+print abs(24)
+
+-----
+/*     1 */ Sk.execStart = Sk.lastYield = new Date();
+/*     2 */ var $compiledmod = function() {
+/*     3 */     var $scope0 = (function($forcegbl, $forceloc) {
+/*     4 */         var $loadname1, $unaryop3, $loadname1, $unaryop3, $call4, $loadname1, $unaryop3, $call4, $loadname5, $loadname5, $call7, $loadname5, $call7;
+/*     5 */         var $wakeFromSuspension = function() {
+/*     6 */             var susp = $scope0.$wakingSuspension;
+/*     7 */             $scope0.$wakingSuspension = undefined;
+/*     8 */             $blk = susp.$blk;
+/*     9 */             $loc = susp.$loc;
+/*    10 */             $gbl = susp.$gbl;
+/*    11 */             $exc = susp.$exc;
+/*    12 */             $err = susp.$err;
+/*    13 */             $postfinally = susp.$postfinally;
+/*    14 */             $currLineNo = susp.$lineno;
+/*    15 */             $currColNo = susp.$colno;
+/*    16 */             Sk.lastYield = Date.now();
+/*    17 */             $loadname1 = susp.$tmps.$loadname1;
+/*    18 */             $unaryop3 = susp.$tmps.$unaryop3;
+/*    19 */             $call4 = susp.$tmps.$call4;
+/*    20 */             $loadname5 = susp.$tmps.$loadname5;
+/*    21 */             $call7 = susp.$tmps.$call7;
+/*    22 */             try {
+/*    23 */                 $ret = susp.child.resume();
+/*    24 */             } catch (err) {
+/*    25 */                 if (!(err instanceof Sk.builtin.BaseException)) {
+/*    26 */                     err = new Sk.builtin.ExternalError(err);
+/*    27 */                 }
+/*    28 */                 err.traceback.push({
+/*    29 */                     lineno: $currLineNo,
+/*    30 */                     colno: $currColNo,
+/*    31 */                     filename: './myabs.py'
+/*    32 */                 });
+/*    33 */                 if ($exc.length > 0) {
+/*    34 */                     $err = err;
+/*    35 */                     $blk = $exc.pop();
+/*    36 */                 } else {
+/*    37 */                     throw err;
+/*    38 */                 }
+/*    39 */             }
+/*    40 */         };
+/*    41 */         var $saveSuspension = function($child, $filename, $lineno, $colno) {
+/*    42 */             var susp = new Sk.misceval.Suspension();
+/*    43 */             susp.child = $child;
+/*    44 */             susp.resume = function() {
+/*    45 */                 $scope0.$wakingSuspension = susp;
+/*    46 */                 return $scope0();
+/*    47 */             };
+/*    48 */             susp.data = susp.child.data;
+/*    49 */             susp.$blk = $blk;
+/*    50 */             susp.$loc = $loc;
+/*    51 */             susp.$gbl = $gbl;
+/*    52 */             susp.$exc = $exc;
+/*    53 */             susp.$err = $err;
+/*    54 */             susp.$postfinally = $postfinally;
+/*    55 */             susp.$filename = $filename;
+/*    56 */             susp.$lineno = $lineno;
+/*    57 */             susp.$colno = $colno;
+/*    58 */             susp.optional = susp.child.optional;
+/*    59 */             susp.$tmps = {
+/*    60 */                 "$loadname1": $loadname1,
+/*    61 */                 "$unaryop3": $unaryop3,
+/*    62 */                 "$call4": $call4,
+/*    63 */                 "$loadname5": $loadname5,
+/*    64 */                 "$call7": $call7
+/*    65 */             };
+/*    66 */             return susp;
+/*    67 */         };
+/*    68 */         var $gbl = $forcegbl || {},
+/*    69 */             $blk = 0,
+/*    70 */             $exc = [],
+/*    71 */             $loc = $forceloc || $gbl,
+/*    72 */             $cell = {},
+/*    73 */             $err = undefined;
+/*    74 */         var $ret = undefined,
+/*    75 */             $postfinally = undefined,
+/*    76 */             $currLineNo = undefined,
+/*    77 */             $currColNo = undefined;
+/*    78 */         if (typeof Sk.execStart === 'undefined') {
+/*    79 */             Sk.execStart = Date.now()
+/*    80 */         }
+/*    81 */         if (typeof Sk.lastYield === 'undefined') {
+/*    82 */             Sk.lastYield = Date.now()
+/*    83 */         }
+/*    84 */         var $waking = false;
+/*    85 */         if ($scope0.$wakingSuspension !== undefined) {
+/*    86 */             $wakeFromSuspension();
+/*    87 */             $waking = true;
+/*    88 */         }
+/*    89 */         if (Sk.retainGlobals) {
+/*    90 */             if (Sk.globals) {
+/*    91 */                 $gbl = Sk.globals;
+/*    92 */                 Sk.globals = $gbl;
+/*    93 */                 $loc = $gbl;
+/*    94 */             } else {
+/*    95 */                 Sk.globals = $gbl;
+/*    96 */             }
+/*    97 */         } else {
+/*    98 */             Sk.globals = $gbl;
+/*    99 */         }
+/*   100 */         while (true) {
+/*   101 */             try {
+/*   102 */                 var $dateNow = Date.now();
+/*   103 */                 if ($dateNow - Sk.execStart > Sk.execLimit) {
+/*   104 */                     throw new Sk.builtin.TimeoutError(Sk.timeoutMsg())
+/*   105 */                 }
+/*   106 */                 if (!$waking && ($dateNow - Sk.lastYield > Sk.yieldLimit)) {
+/*   107 */                     var $susp = $saveSuspension({
+/*   108 */                         data: {
+/*   109 */                             type: 'Sk.yield'
+/*   110 */                         },
+/*   111 */                         resume: function() {}
+/*   112 */                     }, './myabs.py', $currLineNo, $currColNo);
+/*   113 */                     $susp.$blk = $blk;
+/*   114 */                     $susp.optional = true;
+/*   115 */                     return $susp;
+/*   116 */                 }
+/*   117 */                 $waking = false;
+/*   118 */                 switch ($blk) {
+/*   119 */                     case 0:
+/*   120 */                         /* --- module entry --- */
+/*   121 */                         //
+/*   122 */                         // line 1:
+/*   123 */                         // print abs(-1.0)
+/*   124 */                         // ^
+/*   125 */                         //
+/*   126 */                         $currLineNo = 1;
+/*   127 */                         $currColNo = 0;
+/*   128 */ 
+/*   129 */                         var $loadname1 = $loc.abs !== undefined ? $loc.abs : Sk.misceval.loadname('abs', $gbl);;
+/*   130 */                         var $unaryop3 = Sk.abstr.numberUnaryOp($scope0.$const2, 'USub');
+/*   131 */                         $ret = ($loadname1.tp$call) ? $loadname1.tp$call([$unaryop3], undefined) : Sk.misceval.applyOrSuspend($loadname1, undefined, undefined, undefined, [$unaryop3]);
+/*   132 */                         $blk = 1; /* allowing case fallthrough */
+/*   133 */                     case 1:
+/*   134 */                         /* --- function return or resume suspension --- */ if ($ret && $ret.$isSuspension) {
+/*   135 */                             return $saveSuspension($ret, './myabs.py', 1, 6);
+/*   136 */                         }
+/*   137 */                         var $call4 = $ret;
+/*   138 */                         //
+/*   139 */                         // line 1:
+/*   140 */                         // print abs(-1.0)
+/*   141 */                         //       ^
+/*   142 */                         //
+/*   143 */                         $currLineNo = 1;
+/*   144 */                         $currColNo = 6;
+/*   145 */ 
+/*   146 */                         $ret = Sk.misceval.print_(new Sk.builtins['str']($call4).v);
+/*   147 */                         $blk = 2; /* allowing case fallthrough */
+/*   148 */                     case 2:
+/*   149 */                         /* --- function return or resume suspension --- */ if ($ret && $ret.$isSuspension) {
+/*   150 */                             return $saveSuspension($ret, './myabs.py', 1, 0);
+/*   151 */                         }
+/*   152 */                         $ret = Sk.misceval.print_("\n");
+/*   153 */                         $blk = 3; /* allowing case fallthrough */
+/*   154 */                     case 3:
+/*   155 */                         /* --- function return or resume suspension --- */ if ($ret && $ret.$isSuspension) {
+/*   156 */                             return $saveSuspension($ret, './myabs.py', 1, 0);
+/*   157 */                         }
+/*   158 */                         //
+/*   159 */                         // line 2:
+/*   160 */                         // print abs(24)
+/*   161 */                         // ^
+/*   162 */                         //
+/*   163 */                         $currLineNo = 2;
+/*   164 */                         $currColNo = 0;
+/*   165 */ 
+/*   166 */                         var $loadname5 = $loc.abs !== undefined ? $loc.abs : Sk.misceval.loadname('abs', $gbl);;
+/*   167 */                         $ret = ($loadname5.tp$call) ? $loadname5.tp$call([$scope0.$const6], undefined) : Sk.misceval.applyOrSuspend($loadname5, undefined, undefined, undefined, [$scope0.$const6]);
+/*   168 */                         $blk = 4; /* allowing case fallthrough */
+/*   169 */                     case 4:
+/*   170 */                         /* --- function return or resume suspension --- */ if ($ret && $ret.$isSuspension) {
+/*   171 */                             return $saveSuspension($ret, './myabs.py', 2, 6);
+/*   172 */                         }
+/*   173 */                         var $call7 = $ret;
+/*   174 */                         //
+/*   175 */                         // line 2:
+/*   176 */                         // print abs(24)
+/*   177 */                         //       ^
+/*   178 */                         //
+/*   179 */                         $currLineNo = 2;
+/*   180 */                         $currColNo = 6;
+/*   181 */ 
+/*   182 */                         $ret = Sk.misceval.print_(new Sk.builtins['str']($call7).v);
+/*   183 */                         $blk = 5; /* allowing case fallthrough */
+/*   184 */                     case 5:
+/*   185 */                         /* --- function return or resume suspension --- */ if ($ret && $ret.$isSuspension) {
+/*   186 */                             return $saveSuspension($ret, './myabs.py', 2, 0);
+/*   187 */                         }
+/*   188 */                         $ret = Sk.misceval.print_("\n");
+/*   189 */                         $blk = 6; /* allowing case fallthrough */
+/*   190 */                     case 6:
+/*   191 */                         /* --- function return or resume suspension --- */ if ($ret && $ret.$isSuspension) {
+/*   192 */                             return $saveSuspension($ret, './myabs.py', 2, 0);
+/*   193 */                         }
+/*   194 */                         return $loc;
+/*   195 */                         throw new Sk.builtin.SystemError('internal error: unterminated block');
+/*   196 */                 }
+/*   197 */             } catch (err) {
+/*   198 */                 if (!(err instanceof Sk.builtin.BaseException)) {
+/*   199 */                     err = new Sk.builtin.ExternalError(err);
+/*   200 */                 }
+/*   201 */                 err.traceback.push({
+/*   202 */                     lineno: $currLineNo,
+/*   203 */                     colno: $currColNo,
+/*   204 */                     filename: './myabs.py'
+/*   205 */                 });
+/*   206 */                 if ($exc.length > 0) {
+/*   207 */                     $err = err;
+/*   208 */                     $blk = $exc.pop();
+/*   209 */                     continue;
+/*   210 */                 } else {
+/*   211 */                     throw err;
+/*   212 */                 }
+/*   213 */             }
+/*   214 */         }
+/*   215 */     });
+/*   216 */     $scope0.$const2 = new Sk.builtin.float_(1);
+/*   217 */     $scope0.$const6 = new Sk.builtin.int_(24);
+/*   218 */     return $scope0;
+/*   219 */ }();
+/*   220 */ $compiledmod;
+1.0
+24
+-----
+Run time: 0.03s

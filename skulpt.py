@@ -1,5 +1,4 @@
-#!/usr/bin/env python2.7
-
+#!/usr/bin/env python3
 from optparse import OptionParser
 import os
 import sys
@@ -7,6 +6,7 @@ import glob
 import symtable
 import shutil
 import json
+from subprocess import Popen, PIPE
 
 def bowerFileName():
     file = open(".bowerrc")
@@ -64,7 +64,7 @@ def regenruntests(togen="{0}/run/*.py".format(TEST_DIR)):
             os.system("python %s %s.real" % (crlfprog, f))
     for f in glob.glob("{0}/interactive/*.py".format(TEST_DIR)):
         p = Popen("python -i > %s.real 2>%s" % (f, nul), shell=True, stdin=PIPE)
-        p.communicate(open(f).read() + "\004")
+        p.communicate(bytes(open(f).read() + "\004", 'utf-8'))
         forcename = f + ".real.force"
         if os.path.exists(forcename):
             shutil.copy(forcename, "%s.real" % f)
@@ -73,7 +73,7 @@ def regenruntests(togen="{0}/run/*.py".format(TEST_DIR)):
 
 def symtabdump(fn):
     if not os.path.exists(fn):
-        print "%s doesn't exist" % fn
+        print("%s doesn't exist" % fn)
         raise SystemExit()
     text = open(fn).read()
     mod = symtable.symtable(text, os.path.split(fn)[1], "exec")
@@ -210,7 +210,7 @@ def main():
             togen = "{0}/run/".format(TEST_DIR) + sys.argv[2]
         else:
             togen = "{0}/run/*.py".format(TEST_DIR)
-        print "generating tests for ", togen
+        print("generating tests for ", togen)
         regensymtabtests(togen)
         regenasttests(togen)
         regenruntests(togen)
@@ -223,7 +223,7 @@ def main():
     elif cmd == "regenruntests":
         regenruntests()
     else:
-        print usageString(os.path.basename(sys.argv[0]))
+        print(usageString(os.path.basename(sys.argv[0])))
         sys.exit(2)
 
 if __name__ == "__main__":

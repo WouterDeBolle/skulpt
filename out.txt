@@ -1,0 +1,972 @@
+
+> skulpt@1.2.0 start
+> node support/run/runfile.js py3 test.py
+
+Using skulpt.min.js
+-----
+if __name__ == '__main__':
+    print("Hello world")
+
+-----
+/*     1 */ Sk.execStart = Sk.lastYield = new Date();
+/*     2 */ var $compiledmod = function() {
+/*     3 */     var $scope0 = (function($forcegbl, $forceloc) {
+/*     4 */         var $wakeFromSuspension = function() {
+/*     5 */             var susp = $scope0.$wakingSuspension;
+/*     6 */             $scope0.$wakingSuspension = undefined;
+/*     7 */             $blk = susp.$blk;
+/*     8 */             $loc = susp.$loc;
+/*     9 */             $gbl = susp.$gbl;
+/*    10 */             $exc = susp.$exc;
+/*    11 */             $err = susp.$err;
+/*    12 */             $postfinally = susp.$postfinally;
+/*    13 */             $currLineNo = susp.$lineno;
+/*    14 */             $currColNo = susp.$colno;
+/*    15 */             Sk.lastYield = Date.now();
+/*    16 */             try {
+/*    17 */                 $ret = susp.child.resume();
+/*    18 */             } catch (err) {
+/*    19 */                 if (!(err instanceof Sk.builtin.BaseException)) {
+/*    20 */                     err = new Sk.builtin.ExternalError(err);
+/*    21 */                 }
+/*    22 */                 err.traceback.push({
+/*    23 */                     lineno: $currLineNo,
+/*    24 */                     colno: $currColNo,
+/*    25 */                     filename: 'src/lib/test/__init__.py'
+/*    26 */                 });
+/*    27 */                 if ($exc.length > 0) {
+/*    28 */                     $err = err;
+/*    29 */                     $blk = $exc.pop();
+/*    30 */                 } else {
+/*    31 */                     throw err;
+/*    32 */                 }
+/*    33 */             }
+/*    34 */         };
+/*    35 */         var $saveSuspension = function($child, $filename, $lineno, $colno) {
+/*    36 */             var susp = new Sk.misceval.Suspension();
+/*    37 */             susp.child = $child;
+/*    38 */             susp.resume = function() {
+/*    39 */                 $scope0.$wakingSuspension = susp;
+/*    40 */                 return $scope0();
+/*    41 */             };
+/*    42 */             susp.data = susp.child.data;
+/*    43 */             susp.$blk = $blk;
+/*    44 */             susp.$loc = $loc;
+/*    45 */             susp.$gbl = $gbl;
+/*    46 */             susp.$exc = $exc;
+/*    47 */             susp.$err = $err;
+/*    48 */             susp.$postfinally = $postfinally;
+/*    49 */             susp.$filename = $filename;
+/*    50 */             susp.$lineno = $lineno;
+/*    51 */             susp.$colno = $colno;
+/*    52 */             susp.optional = susp.child.optional;
+/*    53 */             susp.$tmps = {};
+/*    54 */             return susp;
+/*    55 */         };
+/*    56 */         var $gbl = $forcegbl || {},
+/*    57 */             $blk = 0,
+/*    58 */             $exc = [],
+/*    59 */             $loc = $forceloc || $gbl,
+/*    60 */             $cell = {},
+/*    61 */             $err = undefined;
+/*    62 */         var $ret = undefined,
+/*    63 */             $postfinally = undefined,
+/*    64 */             $currLineNo = undefined,
+/*    65 */             $currColNo = undefined;
+/*    66 */         if (typeof Sk.execStart === 'undefined') {
+/*    67 */             Sk.execStart = Date.now()
+/*    68 */         }
+/*    69 */         if (typeof Sk.lastYield === 'undefined') {
+/*    70 */             Sk.lastYield = Date.now()
+/*    71 */         }
+/*    72 */         var $waking = false;
+/*    73 */         if ($scope0.$wakingSuspension !== undefined) {
+/*    74 */             $wakeFromSuspension();
+/*    75 */             $waking = true;
+/*    76 */         }
+/*    77 */         if (Sk.retainGlobals) {
+/*    78 */             if (Sk.globals) {
+/*    79 */                 $gbl = Sk.globals;
+/*    80 */                 Sk.globals = $gbl;
+/*    81 */                 $loc = $gbl;
+/*    82 */             } else {
+/*    83 */                 Sk.globals = $gbl;
+/*    84 */             }
+/*    85 */         } else {
+/*    86 */             Sk.globals = $gbl;
+/*    87 */         }
+/*    88 */         while (true) {
+/*    89 */             try {
+/*    90 */                 var $dateNow = Date.now();
+/*    91 */                 if ($dateNow - Sk.execStart > Sk.execLimit) {
+/*    92 */                     throw new Sk.builtin.TimeoutError(Sk.timeoutMsg())
+/*    93 */                 }
+/*    94 */                 if (!$waking && ($dateNow - Sk.lastYield > Sk.yieldLimit)) {
+/*    95 */                     var $susp = $saveSuspension({
+/*    96 */                         data: {
+/*    97 */                             type: 'Sk.yield'
+/*    98 */                         },
+/*    99 */                         resume: function() {}
+/*   100 */                     }, 'src/lib/test/__init__.py', $currLineNo, $currColNo);
+/*   101 */                     $susp.$blk = $blk;
+/*   102 */                     $susp.optional = true;
+/*   103 */                     return $susp;
+/*   104 */                 }
+/*   105 */                 $waking = false;
+/*   106 */                 switch ($blk) {
+/*   107 */                     case 0:
+/*   108 */                         /* --- module entry --- */
+/*   109 */                         //
+/*   110 */                         // line 1:
+/*   111 */                         // __author__ = 'bmiller'
+/*   112 */                         // ^
+/*   113 */                         //
+/*   114 */                         $currLineNo = 1;
+/*   115 */                         $currColNo = 0;
+/*   116 */ 
+/*   117 */                         $loc.__author__ = $scope0.$const1;
+/*   118 */                         //
+/*   119 */                         // line 3:
+/*   120 */                         // def testEqual(actual, expected):
+/*   121 */                         // ^
+/*   122 */                         //
+/*   123 */                         $currLineNo = 3;
+/*   124 */                         $currColNo = 0;
+/*   125 */ 
+/*   126 */                         $scope2.co_name = new Sk.builtins['str']('testEqual');
+/*   127 */                         $scope2.co_varnames = ['actual', 'expected'];
+/*   128 */                         $scope2.co_docstring = Sk.builtin.none.none$;
+/*   129 */                         $scope2.co_fastcall = 1;
+/*   130 */                         var $funcobj51 = new Sk.builtins['function']($scope2, $gbl);
+/*   131 */                         $loc.testEqual = $funcobj51;
+/*   132 */                         //
+/*   133 */                         // line 19:
+/*   134 */                         // def testNotEqual(actual, expected):
+/*   135 */                         // ^
+/*   136 */                         //
+/*   137 */                         $currLineNo = 19;
+/*   138 */                         $currColNo = 0;
+/*   139 */ 
+/*   140 */                         $scope52.co_name = new Sk.builtins['str']('testNotEqual');
+/*   141 */                         $scope52.co_varnames = ['actual', 'expected'];
+/*   142 */                         $scope52.co_docstring = Sk.builtin.none.none$;
+/*   143 */                         $scope52.co_fastcall = 1;
+/*   144 */                         var $funcobj54 = new Sk.builtins['function']($scope52, $gbl);
+/*   145 */                         $loc.testNotEqual = $funcobj54;
+/*   146 */                         return $loc;
+/*   147 */                         throw new Sk.builtin.SystemError('internal error: unterminated block');
+/*   148 */                 }
+/*   149 */             } catch (err) {
+/*   150 */                 if (!(err instanceof Sk.builtin.BaseException)) {
+/*   151 */                     err = new Sk.builtin.ExternalError(err);
+/*   152 */                 }
+/*   153 */                 err.traceback.push({
+/*   154 */                     lineno: $currLineNo,
+/*   155 */                     colno: $currColNo,
+/*   156 */                     filename: 'src/lib/test/__init__.py'
+/*   157 */                 });
+/*   158 */                 if ($exc.length > 0) {
+/*   159 */                     $err = err;
+/*   160 */                     $blk = $exc.pop();
+/*   161 */                     continue;
+/*   162 */                 } else {
+/*   163 */                     throw err;
+/*   164 */                 }
+/*   165 */             }
+/*   166 */         }
+/*   167 */     });
+/*   168 */     $scope0.$const1 = new Sk.builtin.str("bmiller");
+/*   169 */     var $scope2 = (function $testEqual3$($posargs, $kwargs) {
+/*   170 */         // fast call
+/*   171 */         var actual, actual, actual, actual, actual, expected, expected, expected, expected, expected, expected, expected, $loadgbl4, $loadgbl4, $call5, $compareres6, $loadgbl7, $loadgbl4, $call5, $compareres6, $loadgbl7, $call9, $compareres12, $loadgbl15, $loadgbl18, $loadgbl18, $call19, $compareres20, $loadgbl21, $loadgbl18, $call19, $compareres20, $loadgbl21, $call23, $loadgbl26, $binop27, $loadgbl26, $binop27, $call28, $compareres29, $loadgbl33, $compareres35, $loadgbl38, $loadgbl40, $loadgbl42, $loadgbl40, $loadgbl42, $call43, $binop44, $binop46, $loadgbl47, $loadgbl40, $loadgbl42, $call43, $binop44, $binop46, $loadgbl47, $call48, $binop49;
+/*   172 */         var $wakeFromSuspension = function() {
+/*   173 */             var susp = $scope2.$wakingSuspension;
+/*   174 */             $scope2.$wakingSuspension = undefined;
+/*   175 */             $blk = susp.$blk;
+/*   176 */             $loc = susp.$loc;
+/*   177 */             $gbl = susp.$gbl;
+/*   178 */             $exc = susp.$exc;
+/*   179 */             $err = susp.$err;
+/*   180 */             $postfinally = susp.$postfinally;
+/*   181 */             $currLineNo = susp.$lineno;
+/*   182 */             $currColNo = susp.$colno;
+/*   183 */             Sk.lastYield = Date.now();
+/*   184 */             actual = susp.$tmps.actual;
+/*   185 */             expected = susp.$tmps.expected;
+/*   186 */             $loadgbl4 = susp.$tmps.$loadgbl4;
+/*   187 */             $call5 = susp.$tmps.$call5;
+/*   188 */             $compareres6 = susp.$tmps.$compareres6;
+/*   189 */             $loadgbl7 = susp.$tmps.$loadgbl7;
+/*   190 */             $call9 = susp.$tmps.$call9;
+/*   191 */             $compareres12 = susp.$tmps.$compareres12;
+/*   192 */             $loadgbl15 = susp.$tmps.$loadgbl15;
+/*   193 */             $loadgbl18 = susp.$tmps.$loadgbl18;
+/*   194 */             $call19 = susp.$tmps.$call19;
+/*   195 */             $compareres20 = susp.$tmps.$compareres20;
+/*   196 */             $loadgbl21 = susp.$tmps.$loadgbl21;
+/*   197 */             $call23 = susp.$tmps.$call23;
+/*   198 */             $loadgbl26 = susp.$tmps.$loadgbl26;
+/*   199 */             $binop27 = susp.$tmps.$binop27;
+/*   200 */             $call28 = susp.$tmps.$call28;
+/*   201 */             $compareres29 = susp.$tmps.$compareres29;
+/*   202 */             $loadgbl33 = susp.$tmps.$loadgbl33;
+/*   203 */             $compareres35 = susp.$tmps.$compareres35;
+/*   204 */             $loadgbl38 = susp.$tmps.$loadgbl38;
+/*   205 */             $loadgbl40 = susp.$tmps.$loadgbl40;
+/*   206 */             $loadgbl42 = susp.$tmps.$loadgbl42;
+/*   207 */             $call43 = susp.$tmps.$call43;
+/*   208 */             $binop44 = susp.$tmps.$binop44;
+/*   209 */             $binop46 = susp.$tmps.$binop46;
+/*   210 */             $loadgbl47 = susp.$tmps.$loadgbl47;
+/*   211 */             $call48 = susp.$tmps.$call48;
+/*   212 */             $binop49 = susp.$tmps.$binop49;
+/*   213 */             try {
+/*   214 */                 $ret = susp.child.resume();
+/*   215 */             } catch (err) {
+/*   216 */                 if (!(err instanceof Sk.builtin.BaseException)) {
+/*   217 */                     err = new Sk.builtin.ExternalError(err);
+/*   218 */                 }
+/*   219 */                 err.traceback.push({
+/*   220 */                     lineno: $currLineNo,
+/*   221 */                     colno: $currColNo,
+/*   222 */                     filename: 'src/lib/test/__init__.py'
+/*   223 */                 });
+/*   224 */                 if ($exc.length > 0) {
+/*   225 */                     $err = err;
+/*   226 */                     $blk = $exc.pop();
+/*   227 */                 } else {
+/*   228 */                     throw err;
+/*   229 */                 }
+/*   230 */             }
+/*   231 */         };
+/*   232 */         var $saveSuspension = function($child, $filename, $lineno, $colno) {
+/*   233 */             var susp = new Sk.misceval.Suspension();
+/*   234 */             susp.child = $child;
+/*   235 */             susp.resume = function() {
+/*   236 */                 $scope2.$wakingSuspension = susp;
+/*   237 */                 return $scope2();
+/*   238 */             };
+/*   239 */             susp.data = susp.child.data;
+/*   240 */             susp.$blk = $blk;
+/*   241 */             susp.$loc = $loc;
+/*   242 */             susp.$gbl = $gbl;
+/*   243 */             susp.$exc = $exc;
+/*   244 */             susp.$err = $err;
+/*   245 */             susp.$postfinally = $postfinally;
+/*   246 */             susp.$filename = $filename;
+/*   247 */             susp.$lineno = $lineno;
+/*   248 */             susp.$colno = $colno;
+/*   249 */             susp.optional = susp.child.optional;
+/*   250 */             susp.$tmps = {
+/*   251 */                 "actual": actual,
+/*   252 */                 "expected": expected,
+/*   253 */                 "$loadgbl4": $loadgbl4,
+/*   254 */                 "$call5": $call5,
+/*   255 */                 "$compareres6": $compareres6,
+/*   256 */                 "$loadgbl7": $loadgbl7,
+/*   257 */                 "$call9": $call9,
+/*   258 */                 "$compareres12": $compareres12,
+/*   259 */                 "$loadgbl15": $loadgbl15,
+/*   260 */                 "$loadgbl18": $loadgbl18,
+/*   261 */                 "$call19": $call19,
+/*   262 */                 "$compareres20": $compareres20,
+/*   263 */                 "$loadgbl21": $loadgbl21,
+/*   264 */                 "$call23": $call23,
+/*   265 */                 "$loadgbl26": $loadgbl26,
+/*   266 */                 "$binop27": $binop27,
+/*   267 */                 "$call28": $call28,
+/*   268 */                 "$compareres29": $compareres29,
+/*   269 */                 "$loadgbl33": $loadgbl33,
+/*   270 */                 "$compareres35": $compareres35,
+/*   271 */                 "$loadgbl38": $loadgbl38,
+/*   272 */                 "$loadgbl40": $loadgbl40,
+/*   273 */                 "$loadgbl42": $loadgbl42,
+/*   274 */                 "$call43": $call43,
+/*   275 */                 "$binop44": $binop44,
+/*   276 */                 "$binop46": $binop46,
+/*   277 */                 "$loadgbl47": $loadgbl47,
+/*   278 */                 "$call48": $call48,
+/*   279 */                 "$binop49": $binop49
+/*   280 */             };
+/*   281 */             return susp;
+/*   282 */         };
+/*   283 */         var $blk = 0,
+/*   284 */             $exc = [],
+/*   285 */             $loc = {},
+/*   286 */             $cell = {},
+/*   287 */             $gbl = this && this.func_globals,
+/*   288 */             $err = undefined,
+/*   289 */             $ret = undefined,
+/*   290 */             $postfinally = undefined,
+/*   291 */             $currLineNo = undefined,
+/*   292 */             $currColNo = undefined;
+/*   293 */         if (typeof Sk.execStart === 'undefined') {
+/*   294 */             Sk.execStart = Date.now()
+/*   295 */         }
+/*   296 */         if (typeof Sk.lastYield === 'undefined') {
+/*   297 */             Sk.lastYield = Date.now()
+/*   298 */         }
+/*   299 */         var $waking = false;
+/*   300 */         if ($scope2.$wakingSuspension !== undefined) {
+/*   301 */             $wakeFromSuspension();
+/*   302 */             $waking = true;
+/*   303 */         } else {
+/*   304 */             var $args = ((!$kwargs || $kwargs.length === 0) && $posargs.length === 2) ? $posargs : this.$resolveArgs($posargs, $kwargs),
+/*   305 */                 actual = $args[0],
+/*   306 */                 expected = $args[1],
+/*   307 */                 $sup = actual;
+/*   308 */         }
+/*   309 */         while (true) {
+/*   310 */             try {
+/*   311 */                 var $dateNow = Date.now();
+/*   312 */                 if ($dateNow - Sk.execStart > Sk.execLimit) {
+/*   313 */                     throw new Sk.builtin.TimeoutError(Sk.timeoutMsg())
+/*   314 */                 }
+/*   315 */                 if (!$waking && ($dateNow - Sk.lastYield > Sk.yieldLimit)) {
+/*   316 */                     var $susp = $saveSuspension({
+/*   317 */                         data: {
+/*   318 */                             type: 'Sk.yield'
+/*   319 */                         },
+/*   320 */                         resume: function() {}
+/*   321 */                     }, 'src/lib/test/__init__.py', $currLineNo, $currColNo);
+/*   322 */                     $susp.$blk = $blk;
+/*   323 */                     $susp.optional = true;
+/*   324 */                     return $susp;
+/*   325 */                 }
+/*   326 */                 $waking = false;
+/*   327 */                 switch ($blk) {
+/*   328 */                     case 0:
+/*   329 */                         /* --- codeobj entry --- */ if (actual === undefined) {
+/*   330 */                             throw new Sk.builtin.UnboundLocalError('local variable \'actual\' referenced before assignment');
+/*   331 */                         }
+/*   332 */                         if (expected === undefined) {
+/*   333 */                             throw new Sk.builtin.UnboundLocalError('local variable \'expected\' referenced before assignment');
+/*   334 */                         }
+/*   335 */ 
+/*   336 */                         //
+/*   337 */                         // line 4:
+/*   338 */                         //     if type(expected) == type(1):
+/*   339 */                         //     ^
+/*   340 */                         //
+/*   341 */                         $currLineNo = 4;
+/*   342 */                         $currColNo = 4;
+/*   343 */ 
+/*   344 */                         var $loadgbl4 = Sk.misceval.loadname('type', $gbl);
+/*   345 */                         if (expected === undefined) {
+/*   346 */                             throw new Sk.builtin.UnboundLocalError('local variable \'expected\' referenced before assignment');
+/*   347 */                         }
+/*   348 */                         $ret = ($loadgbl4.tp$call) ? $loadgbl4.tp$call([expected], undefined) : Sk.misceval.applyOrSuspend($loadgbl4, undefined, undefined, undefined, [expected]);
+/*   349 */                         $blk = 3; /* allowing case fallthrough */
+/*   350 */                     case 3:
+/*   351 */                         /* --- function return or resume suspension --- */ if ($ret && $ret.$isSuspension) {
+/*   352 */                             return $saveSuspension($ret, 'src/lib/test/__init__.py', 4, 7);
+/*   353 */                         }
+/*   354 */                         var $call5 = $ret;
+/*   355 */                         //
+/*   356 */                         // line 4:
+/*   357 */                         //     if type(expected) == type(1):
+/*   358 */                         //        ^
+/*   359 */                         //
+/*   360 */                         $currLineNo = 4;
+/*   361 */                         $currColNo = 7;
+/*   362 */ 
+/*   363 */                         var $compareres6 = null;
+/*   364 */                         var $loadgbl7 = Sk.misceval.loadname('type', $gbl);
+/*   365 */                         $ret = ($loadgbl7.tp$call) ? $loadgbl7.tp$call([$scope2.$const8], undefined) : Sk.misceval.applyOrSuspend($loadgbl7, undefined, undefined, undefined, [$scope2.$const8]);
+/*   366 */                         $blk = 5; /* allowing case fallthrough */
+/*   367 */                     case 5:
+/*   368 */                         /* --- function return or resume suspension --- */ if ($ret && $ret.$isSuspension) {
+/*   369 */                             return $saveSuspension($ret, 'src/lib/test/__init__.py', 4, 25);
+/*   370 */                         }
+/*   371 */                         var $call9 = $ret;
+/*   372 */                         //
+/*   373 */                         // line 4:
+/*   374 */                         //     if type(expected) == type(1):
+/*   375 */                         //                          ^
+/*   376 */                         //
+/*   377 */                         $currLineNo = 4;
+/*   378 */                         $currColNo = 25;
+/*   379 */ 
+/*   380 */                         $ret = Sk.misceval.richCompareBool($call5, $call9, 'Eq', true);
+/*   381 */                         $blk = 6; /* allowing case fallthrough */
+/*   382 */                     case 6:
+/*   383 */                         /* --- function return or resume suspension --- */ if ($ret && $ret.$isSuspension) {
+/*   384 */                             return $saveSuspension($ret, 'src/lib/test/__init__.py', 4, 7);
+/*   385 */                         }
+/*   386 */                         $compareres6 = Sk.builtin.bool($ret);
+/*   387 */                         var $jfalse10 = ($ret === false || !Sk.misceval.isTrue($ret));
+/*   388 */                         if ($jfalse10) {
+/*   389 */                             /*test failed */
+/*   390 */                             $blk = 4;
+/*   391 */                             continue;
+/*   392 */                         }
+/*   393 */                         $blk = 4; /* allowing case fallthrough */
+/*   394 */                     case 4:
+/*   395 */                         /* --- done --- */ var $jfalse11 = ($compareres6 === false || !Sk.misceval.isTrue($compareres6));
+/*   396 */                         if ($jfalse11) {
+/*   397 */                             /*test failed */
+/*   398 */                             $blk = 2;
+/*   399 */                             continue;
+/*   400 */                         }
+/*   401 */                         //
+/*   402 */                         // line 5:
+/*   403 */                         //         if actual == expected:
+/*   404 */                         //         ^
+/*   405 */                         //
+/*   406 */                         $currLineNo = 5;
+/*   407 */                         $currColNo = 8;
+/*   408 */ 
+/*   409 */                         if (actual === undefined) {
+/*   410 */                             throw new Sk.builtin.UnboundLocalError('local variable \'actual\' referenced before assignment');
+/*   411 */                         }
+/*   412 */                         var $compareres12 = null;
+/*   413 */                         if (expected === undefined) {
+/*   414 */                             throw new Sk.builtin.UnboundLocalError('local variable \'expected\' referenced before assignment');
+/*   415 */                         }
+/*   416 */                         $ret = Sk.misceval.richCompareBool(actual, expected, 'Eq', true);
+/*   417 */                         $blk = 9; /* allowing case fallthrough */
+/*   418 */                     case 9:
+/*   419 */                         /* --- function return or resume suspension --- */ if ($ret && $ret.$isSuspension) {
+/*   420 */                             return $saveSuspension($ret, 'src/lib/test/__init__.py', 5, 11);
+/*   421 */                         }
+/*   422 */                         $compareres12 = Sk.builtin.bool($ret);
+/*   423 */                         var $jfalse13 = ($ret === false || !Sk.misceval.isTrue($ret));
+/*   424 */                         if ($jfalse13) {
+/*   425 */                             /*test failed */
+/*   426 */                             $blk = 8;
+/*   427 */                             continue;
+/*   428 */                         }
+/*   429 */                         $blk = 8; /* allowing case fallthrough */
+/*   430 */                     case 8:
+/*   431 */                         /* --- done --- */ var $jfalse14 = ($compareres12 === false || !Sk.misceval.isTrue($compareres12));
+/*   432 */                         if ($jfalse14) {
+/*   433 */                             /*test failed */
+/*   434 */                             $blk = 7;
+/*   435 */                             continue;
+/*   436 */                         }
+/*   437 */                         //
+/*   438 */                         // line 6:
+/*   439 */                         //             print('Pass')
+/*   440 */                         //             ^
+/*   441 */                         //
+/*   442 */                         $currLineNo = 6;
+/*   443 */                         $currColNo = 12;
+/*   444 */ 
+/*   445 */                         var $loadgbl15 = Sk.misceval.loadname('print', $gbl);
+/*   446 */                         $ret = ($loadgbl15.tp$call) ? $loadgbl15.tp$call([$scope2.$const16], undefined) : Sk.misceval.applyOrSuspend($loadgbl15, undefined, undefined, undefined, [$scope2.$const16]);
+/*   447 */                         $blk = 10; /* allowing case fallthrough */
+/*   448 */                     case 10:
+/*   449 */                         /* --- function return or resume suspension --- */ if ($ret && $ret.$isSuspension) {
+/*   450 */                             return $saveSuspension($ret, 'src/lib/test/__init__.py', 6, 12);
+/*   451 */                         }
+/*   452 */                         var $call17 = $ret;
+/*   453 */                         //
+/*   454 */                         // line 6:
+/*   455 */                         //             print('Pass')
+/*   456 */                         //             ^
+/*   457 */                         //
+/*   458 */                         $currLineNo = 6;
+/*   459 */                         $currColNo = 12;
+/*   460 */ 
+/*   461 */ 
+/*   462 */                         //
+/*   463 */                         // line 7:
+/*   464 */                         //             return True
+/*   465 */                         //             ^
+/*   466 */                         //
+/*   467 */                         $currLineNo = 7;
+/*   468 */                         $currColNo = 12;
+/*   469 */ 
+/*   470 */                         return Sk.builtin.bool.true$;
+/*   471 */                         $blk = 7; /* allowing case fallthrough */
+/*   472 */                     case 7:
+/*   473 */                         /* --- end of if --- */ $blk = 1; /* allowing case fallthrough */
+/*   474 */                     case 1:
+/*   475 */                         /* --- end of if --- */
+/*   476 */                         //
+/*   477 */                         // line 16:
+/*   478 */                         //     print('Test Failed: expected ' + str(expected) + ' but got ' + str(actual))
+/*   479 */                         //     ^
+/*   480 */                         //
+/*   481 */                         $currLineNo = 16;
+/*   482 */                         $currColNo = 4;
+/*   483 */ 
+/*   484 */                         var $loadgbl40 = Sk.misceval.loadname('print', $gbl);
+/*   485 */                         var $loadgbl42 = Sk.misceval.loadname('str', $gbl);
+/*   486 */                         if (expected === undefined) {
+/*   487 */                             throw new Sk.builtin.UnboundLocalError('local variable \'expected\' referenced before assignment');
+/*   488 */                         }
+/*   489 */                         $ret = ($loadgbl42.tp$call) ? $loadgbl42.tp$call([expected], undefined) : Sk.misceval.applyOrSuspend($loadgbl42, undefined, undefined, undefined, [expected]);
+/*   490 */                         $blk = 26; /* allowing case fallthrough */
+/*   491 */                     case 26:
+/*   492 */                         /* --- function return or resume suspension --- */ if ($ret && $ret.$isSuspension) {
+/*   493 */                             return $saveSuspension($ret, 'src/lib/test/__init__.py', 16, 37);
+/*   494 */                         }
+/*   495 */                         var $call43 = $ret;
+/*   496 */                         //
+/*   497 */                         // line 16:
+/*   498 */                         //     print('Test Failed: expected ' + str(expected) + ' but got ' + str(actual))
+/*   499 */                         //                                      ^
+/*   500 */                         //
+/*   501 */                         $currLineNo = 16;
+/*   502 */                         $currColNo = 37;
+/*   503 */ 
+/*   504 */                         var $binop44 = Sk.abstr.numberBinOp($scope2.$const41, $call43, 'Add');
+/*   505 */                         var $binop46 = Sk.abstr.numberBinOp($binop44, $scope2.$const45, 'Add');
+/*   506 */                         var $loadgbl47 = Sk.misceval.loadname('str', $gbl);
+/*   507 */                         if (actual === undefined) {
+/*   508 */                             throw new Sk.builtin.UnboundLocalError('local variable \'actual\' referenced before assignment');
+/*   509 */                         }
+/*   510 */                         $ret = ($loadgbl47.tp$call) ? $loadgbl47.tp$call([actual], undefined) : Sk.misceval.applyOrSuspend($loadgbl47, undefined, undefined, undefined, [actual]);
+/*   511 */                         $blk = 27; /* allowing case fallthrough */
+/*   512 */                     case 27:
+/*   513 */                         /* --- function return or resume suspension --- */ if ($ret && $ret.$isSuspension) {
+/*   514 */                             return $saveSuspension($ret, 'src/lib/test/__init__.py', 16, 67);
+/*   515 */                         }
+/*   516 */                         var $call48 = $ret;
+/*   517 */                         //
+/*   518 */                         // line 16:
+/*   519 */                         //     print('Test Failed: expected ' + str(expected) + ' but got ' + str(actual))
+/*   520 */                         //                                                                    ^
+/*   521 */                         //
+/*   522 */                         $currLineNo = 16;
+/*   523 */                         $currColNo = 67;
+/*   524 */ 
+/*   525 */                         var $binop49 = Sk.abstr.numberBinOp($binop46, $call48, 'Add');
+/*   526 */                         $ret = ($loadgbl40.tp$call) ? $loadgbl40.tp$call([$binop49], undefined) : Sk.misceval.applyOrSuspend($loadgbl40, undefined, undefined, undefined, [$binop49]);
+/*   527 */                         $blk = 28; /* allowing case fallthrough */
+/*   528 */                     case 28:
+/*   529 */                         /* --- function return or resume suspension --- */ if ($ret && $ret.$isSuspension) {
+/*   530 */                             return $saveSuspension($ret, 'src/lib/test/__init__.py', 16, 4);
+/*   531 */                         }
+/*   532 */                         var $call50 = $ret;
+/*   533 */                         //
+/*   534 */                         // line 16:
+/*   535 */                         //     print('Test Failed: expected ' + str(expected) + ' but got ' + str(actual))
+/*   536 */                         //     ^
+/*   537 */                         //
+/*   538 */                         $currLineNo = 16;
+/*   539 */                         $currColNo = 4;
+/*   540 */ 
+/*   541 */ 
+/*   542 */                         //
+/*   543 */                         // line 17:
+/*   544 */                         //     return False
+/*   545 */                         //     ^
+/*   546 */                         //
+/*   547 */                         $currLineNo = 17;
+/*   548 */                         $currColNo = 4;
+/*   549 */ 
+/*   550 */                         return Sk.builtin.bool.false$;
+/*   551 */                         return Sk.builtin.none.none$;
+/*   552 */                         throw new Sk.builtin.SystemError('internal error: unterminated block');
+/*   553 */                     case 2:
+/*   554 */                         /* --- next branch of if --- */
+/*   555 */                         //
+/*   556 */                         // line 8:
+/*   557 */                         //     elif type(expected) == type(1.11):
+/*   558 */                         //          ^
+/*   559 */                         //
+/*   560 */                         $currLineNo = 8;
+/*   561 */                         $currColNo = 9;
+/*   562 */ 
+/*   563 */                         var $loadgbl18 = Sk.misceval.loadname('type', $gbl);
+/*   564 */                         if (expected === undefined) {
+/*   565 */                             throw new Sk.builtin.UnboundLocalError('local variable \'expected\' referenced before assignment');
+/*   566 */                         }
+/*   567 */                         $ret = ($loadgbl18.tp$call) ? $loadgbl18.tp$call([expected], undefined) : Sk.misceval.applyOrSuspend($loadgbl18, undefined, undefined, undefined, [expected]);
+/*   568 */                         $blk = 13; /* allowing case fallthrough */
+/*   569 */                     case 13:
+/*   570 */                         /* --- function return or resume suspension --- */ if ($ret && $ret.$isSuspension) {
+/*   571 */                             return $saveSuspension($ret, 'src/lib/test/__init__.py', 8, 9);
+/*   572 */                         }
+/*   573 */                         var $call19 = $ret;
+/*   574 */                         //
+/*   575 */                         // line 8:
+/*   576 */                         //     elif type(expected) == type(1.11):
+/*   577 */                         //          ^
+/*   578 */                         //
+/*   579 */                         $currLineNo = 8;
+/*   580 */                         $currColNo = 9;
+/*   581 */ 
+/*   582 */                         var $compareres20 = null;
+/*   583 */                         var $loadgbl21 = Sk.misceval.loadname('type', $gbl);
+/*   584 */                         $ret = ($loadgbl21.tp$call) ? $loadgbl21.tp$call([$scope2.$const22], undefined) : Sk.misceval.applyOrSuspend($loadgbl21, undefined, undefined, undefined, [$scope2.$const22]);
+/*   585 */                         $blk = 15; /* allowing case fallthrough */
+/*   586 */                     case 15:
+/*   587 */                         /* --- function return or resume suspension --- */ if ($ret && $ret.$isSuspension) {
+/*   588 */                             return $saveSuspension($ret, 'src/lib/test/__init__.py', 8, 27);
+/*   589 */                         }
+/*   590 */                         var $call23 = $ret;
+/*   591 */                         //
+/*   592 */                         // line 8:
+/*   593 */                         //     elif type(expected) == type(1.11):
+/*   594 */                         //                            ^
+/*   595 */                         //
+/*   596 */                         $currLineNo = 8;
+/*   597 */                         $currColNo = 27;
+/*   598 */ 
+/*   599 */                         $ret = Sk.misceval.richCompareBool($call19, $call23, 'Eq', true);
+/*   600 */                         $blk = 16; /* allowing case fallthrough */
+/*   601 */                     case 16:
+/*   602 */                         /* --- function return or resume suspension --- */ if ($ret && $ret.$isSuspension) {
+/*   603 */                             return $saveSuspension($ret, 'src/lib/test/__init__.py', 8, 9);
+/*   604 */                         }
+/*   605 */                         $compareres20 = Sk.builtin.bool($ret);
+/*   606 */                         var $jfalse24 = ($ret === false || !Sk.misceval.isTrue($ret));
+/*   607 */                         if ($jfalse24) {
+/*   608 */                             /*test failed */
+/*   609 */                             $blk = 14;
+/*   610 */                             continue;
+/*   611 */                         }
+/*   612 */                         $blk = 14; /* allowing case fallthrough */
+/*   613 */                     case 14:
+/*   614 */                         /* --- done --- */ var $jfalse25 = ($compareres20 === false || !Sk.misceval.isTrue($compareres20));
+/*   615 */                         if ($jfalse25) {
+/*   616 */                             /*test failed */
+/*   617 */                             $blk = 12;
+/*   618 */                             continue;
+/*   619 */                         }
+/*   620 */                         //
+/*   621 */                         // line 9:
+/*   622 */                         //         if abs(actual-expected) < 0.00001:
+/*   623 */                         //         ^
+/*   624 */                         //
+/*   625 */                         $currLineNo = 9;
+/*   626 */                         $currColNo = 8;
+/*   627 */ 
+/*   628 */                         var $loadgbl26 = Sk.misceval.loadname('abs', $gbl);
+/*   629 */                         if (actual === undefined) {
+/*   630 */                             throw new Sk.builtin.UnboundLocalError('local variable \'actual\' referenced before assignment');
+/*   631 */                         }
+/*   632 */                         if (expected === undefined) {
+/*   633 */                             throw new Sk.builtin.UnboundLocalError('local variable \'expected\' referenced before assignment');
+/*   634 */                         }
+/*   635 */                         var $binop27 = Sk.abstr.numberBinOp(actual, expected, 'Sub');
+/*   636 */                         $ret = ($loadgbl26.tp$call) ? $loadgbl26.tp$call([$binop27], undefined) : Sk.misceval.applyOrSuspend($loadgbl26, undefined, undefined, undefined, [$binop27]);
+/*   637 */                         $blk = 18; /* allowing case fallthrough */
+/*   638 */                     case 18:
+/*   639 */                         /* --- function return or resume suspension --- */ if ($ret && $ret.$isSuspension) {
+/*   640 */                             return $saveSuspension($ret, 'src/lib/test/__init__.py', 9, 11);
+/*   641 */                         }
+/*   642 */                         var $call28 = $ret;
+/*   643 */                         //
+/*   644 */                         // line 9:
+/*   645 */                         //         if abs(actual-expected) < 0.00001:
+/*   646 */                         //            ^
+/*   647 */                         //
+/*   648 */                         $currLineNo = 9;
+/*   649 */                         $currColNo = 11;
+/*   650 */ 
+/*   651 */                         var $compareres29 = null;
+/*   652 */                         $ret = Sk.misceval.richCompareBool($call28, $scope2.$const30, 'Lt', true);
+/*   653 */                         $blk = 20; /* allowing case fallthrough */
+/*   654 */                     case 20:
+/*   655 */                         /* --- function return or resume suspension --- */ if ($ret && $ret.$isSuspension) {
+/*   656 */                             return $saveSuspension($ret, 'src/lib/test/__init__.py', 9, 11);
+/*   657 */                         }
+/*   658 */                         $compareres29 = Sk.builtin.bool($ret);
+/*   659 */                         var $jfalse31 = ($ret === false || !Sk.misceval.isTrue($ret));
+/*   660 */                         if ($jfalse31) {
+/*   661 */                             /*test failed */
+/*   662 */                             $blk = 19;
+/*   663 */                             continue;
+/*   664 */                         }
+/*   665 */                         $blk = 19; /* allowing case fallthrough */
+/*   666 */                     case 19:
+/*   667 */                         /* --- done --- */ var $jfalse32 = ($compareres29 === false || !Sk.misceval.isTrue($compareres29));
+/*   668 */                         if ($jfalse32) {
+/*   669 */                             /*test failed */
+/*   670 */                             $blk = 17;
+/*   671 */                             continue;
+/*   672 */                         }
+/*   673 */                         //
+/*   674 */                         // line 10:
+/*   675 */                         //             print('Pass')
+/*   676 */                         //             ^
+/*   677 */                         //
+/*   678 */                         $currLineNo = 10;
+/*   679 */                         $currColNo = 12;
+/*   680 */ 
+/*   681 */                         var $loadgbl33 = Sk.misceval.loadname('print', $gbl);
+/*   682 */                         $ret = ($loadgbl33.tp$call) ? $loadgbl33.tp$call([$scope2.$const16], undefined) : Sk.misceval.applyOrSuspend($loadgbl33, undefined, undefined, undefined, [$scope2.$const16]);
+/*   683 */                         $blk = 21; /* allowing case fallthrough */
+/*   684 */                     case 21:
+/*   685 */                         /* --- function return or resume suspension --- */ if ($ret && $ret.$isSuspension) {
+/*   686 */                             return $saveSuspension($ret, 'src/lib/test/__init__.py', 10, 12);
+/*   687 */                         }
+/*   688 */                         var $call34 = $ret;
+/*   689 */                         //
+/*   690 */                         // line 10:
+/*   691 */                         //             print('Pass')
+/*   692 */                         //             ^
+/*   693 */                         //
+/*   694 */                         $currLineNo = 10;
+/*   695 */                         $currColNo = 12;
+/*   696 */ 
+/*   697 */ 
+/*   698 */                         //
+/*   699 */                         // line 11:
+/*   700 */                         //             return True
+/*   701 */                         //             ^
+/*   702 */                         //
+/*   703 */                         $currLineNo = 11;
+/*   704 */                         $currColNo = 12;
+/*   705 */ 
+/*   706 */                         return Sk.builtin.bool.true$;
+/*   707 */                         $blk = 17; /* allowing case fallthrough */
+/*   708 */                     case 17:
+/*   709 */                         /* --- end of if --- */ $blk = 11; /* allowing case fallthrough */
+/*   710 */                     case 11:
+/*   711 */                         /* --- end of if --- */ $blk = 1; /* jump */
+/*   712 */                         continue;
+/*   713 */                     case 12:
+/*   714 */                         /* --- next branch of if --- */
+/*   715 */                         //
+/*   716 */                         // line 13:
+/*   717 */                         //         if actual == expected:
+/*   718 */                         //         ^
+/*   719 */                         //
+/*   720 */                         $currLineNo = 13;
+/*   721 */                         $currColNo = 8;
+/*   722 */ 
+/*   723 */                         if (actual === undefined) {
+/*   724 */                             throw new Sk.builtin.UnboundLocalError('local variable \'actual\' referenced before assignment');
+/*   725 */                         }
+/*   726 */                         var $compareres35 = null;
+/*   727 */                         if (expected === undefined) {
+/*   728 */                             throw new Sk.builtin.UnboundLocalError('local variable \'expected\' referenced before assignment');
+/*   729 */                         }
+/*   730 */                         $ret = Sk.misceval.richCompareBool(actual, expected, 'Eq', true);
+/*   731 */                         $blk = 24; /* allowing case fallthrough */
+/*   732 */                     case 24:
+/*   733 */                         /* --- function return or resume suspension --- */ if ($ret && $ret.$isSuspension) {
+/*   734 */                             return $saveSuspension($ret, 'src/lib/test/__init__.py', 13, 11);
+/*   735 */                         }
+/*   736 */                         $compareres35 = Sk.builtin.bool($ret);
+/*   737 */                         var $jfalse36 = ($ret === false || !Sk.misceval.isTrue($ret));
+/*   738 */                         if ($jfalse36) {
+/*   739 */                             /*test failed */
+/*   740 */                             $blk = 23;
+/*   741 */                             continue;
+/*   742 */                         }
+/*   743 */                         $blk = 23; /* allowing case fallthrough */
+/*   744 */                     case 23:
+/*   745 */                         /* --- done --- */ var $jfalse37 = ($compareres35 === false || !Sk.misceval.isTrue($compareres35));
+/*   746 */                         if ($jfalse37) {
+/*   747 */                             /*test failed */
+/*   748 */                             $blk = 22;
+/*   749 */                             continue;
+/*   750 */                         }
+/*   751 */                         //
+/*   752 */                         // line 14:
+/*   753 */                         //             print('Pass')
+/*   754 */                         //             ^
+/*   755 */                         //
+/*   756 */                         $currLineNo = 14;
+/*   757 */                         $currColNo = 12;
+/*   758 */ 
+/*   759 */                         var $loadgbl38 = Sk.misceval.loadname('print', $gbl);
+/*   760 */                         $ret = ($loadgbl38.tp$call) ? $loadgbl38.tp$call([$scope2.$const16], undefined) : Sk.misceval.applyOrSuspend($loadgbl38, undefined, undefined, undefined, [$scope2.$const16]);
+/*   761 */                         $blk = 25; /* allowing case fallthrough */
+/*   762 */                     case 25:
+/*   763 */                         /* --- function return or resume suspension --- */ if ($ret && $ret.$isSuspension) {
+/*   764 */                             return $saveSuspension($ret, 'src/lib/test/__init__.py', 14, 12);
+/*   765 */                         }
+/*   766 */                         var $call39 = $ret;
+/*   767 */                         //
+/*   768 */                         // line 14:
+/*   769 */                         //             print('Pass')
+/*   770 */                         //             ^
+/*   771 */                         //
+/*   772 */                         $currLineNo = 14;
+/*   773 */                         $currColNo = 12;
+/*   774 */ 
+/*   775 */ 
+/*   776 */                         //
+/*   777 */                         // line 15:
+/*   778 */                         //             return True
+/*   779 */                         //             ^
+/*   780 */                         //
+/*   781 */                         $currLineNo = 15;
+/*   782 */                         $currColNo = 12;
+/*   783 */ 
+/*   784 */                         return Sk.builtin.bool.true$;
+/*   785 */                         $blk = 22; /* allowing case fallthrough */
+/*   786 */                     case 22:
+/*   787 */                         /* --- end of if --- */ $blk = 11; /* jump */
+/*   788 */                         continue;
+/*   789 */                 }
+/*   790 */             } catch (err) {
+/*   791 */                 if (!(err instanceof Sk.builtin.BaseException)) {
+/*   792 */                     err = new Sk.builtin.ExternalError(err);
+/*   793 */                 }
+/*   794 */                 err.traceback.push({
+/*   795 */                     lineno: $currLineNo,
+/*   796 */                     colno: $currColNo,
+/*   797 */                     filename: 'src/lib/test/__init__.py'
+/*   798 */                 });
+/*   799 */                 if ($exc.length > 0) {
+/*   800 */                     $err = err;
+/*   801 */                     $blk = $exc.pop();
+/*   802 */                     continue;
+/*   803 */                 } else {
+/*   804 */                     throw err;
+/*   805 */                 }
+/*   806 */             }
+/*   807 */         }
+/*   808 */     });
+/*   809 */     $scope2.$const8 = new Sk.builtin.int_(1);
+/*   810 */     $scope2.$const16 = new Sk.builtin.str("Pass");
+/*   811 */     $scope2.$const22 = new Sk.builtin.float_(1.11);
+/*   812 */     $scope2.$const30 = new Sk.builtin.float_(0.00001);
+/*   813 */     $scope2.$const41 = new Sk.builtin.str("Test Failed: expected ");
+/*   814 */     $scope2.$const45 = new Sk.builtin.str(" but got ");
+/*   815 */     var $scope52 = (function $testNotEqual53$($posargs, $kwargs) {
+/*   816 */         // fast call
+/*   817 */         var actual, expected;
+/*   818 */         var $wakeFromSuspension = function() {
+/*   819 */             var susp = $scope52.$wakingSuspension;
+/*   820 */             $scope52.$wakingSuspension = undefined;
+/*   821 */             $blk = susp.$blk;
+/*   822 */             $loc = susp.$loc;
+/*   823 */             $gbl = susp.$gbl;
+/*   824 */             $exc = susp.$exc;
+/*   825 */             $err = susp.$err;
+/*   826 */             $postfinally = susp.$postfinally;
+/*   827 */             $currLineNo = susp.$lineno;
+/*   828 */             $currColNo = susp.$colno;
+/*   829 */             Sk.lastYield = Date.now();
+/*   830 */             actual = susp.$tmps.actual;
+/*   831 */             expected = susp.$tmps.expected;
+/*   832 */             try {
+/*   833 */                 $ret = susp.child.resume();
+/*   834 */             } catch (err) {
+/*   835 */                 if (!(err instanceof Sk.builtin.BaseException)) {
+/*   836 */                     err = new Sk.builtin.ExternalError(err);
+/*   837 */                 }
+/*   838 */                 err.traceback.push({
+/*   839 */                     lineno: $currLineNo,
+/*   840 */                     colno: $currColNo,
+/*   841 */                     filename: 'src/lib/test/__init__.py'
+/*   842 */                 });
+/*   843 */                 if ($exc.length > 0) {
+/*   844 */                     $err = err;
+/*   845 */                     $blk = $exc.pop();
+/*   846 */                 } else {
+/*   847 */                     throw err;
+/*   848 */                 }
+/*   849 */             }
+/*   850 */         };
+/*   851 */         var $saveSuspension = function($child, $filename, $lineno, $colno) {
+/*   852 */             var susp = new Sk.misceval.Suspension();
+/*   853 */             susp.child = $child;
+/*   854 */             susp.resume = function() {
+/*   855 */                 $scope52.$wakingSuspension = susp;
+/*   856 */                 return $scope52();
+/*   857 */             };
+/*   858 */             susp.data = susp.child.data;
+/*   859 */             susp.$blk = $blk;
+/*   860 */             susp.$loc = $loc;
+/*   861 */             susp.$gbl = $gbl;
+/*   862 */             susp.$exc = $exc;
+/*   863 */             susp.$err = $err;
+/*   864 */             susp.$postfinally = $postfinally;
+/*   865 */             susp.$filename = $filename;
+/*   866 */             susp.$lineno = $lineno;
+/*   867 */             susp.$colno = $colno;
+/*   868 */             susp.optional = susp.child.optional;
+/*   869 */             susp.$tmps = {
+/*   870 */                 "actual": actual,
+/*   871 */                 "expected": expected
+/*   872 */             };
+/*   873 */             return susp;
+/*   874 */         };
+/*   875 */         var $blk = 0,
+/*   876 */             $exc = [],
+/*   877 */             $loc = {},
+/*   878 */             $cell = {},
+/*   879 */             $gbl = this && this.func_globals,
+/*   880 */             $err = undefined,
+/*   881 */             $ret = undefined,
+/*   882 */             $postfinally = undefined,
+/*   883 */             $currLineNo = undefined,
+/*   884 */             $currColNo = undefined;
+/*   885 */         if (typeof Sk.execStart === 'undefined') {
+/*   886 */             Sk.execStart = Date.now()
+/*   887 */         }
+/*   888 */         if (typeof Sk.lastYield === 'undefined') {
+/*   889 */             Sk.lastYield = Date.now()
+/*   890 */         }
+/*   891 */         var $waking = false;
+/*   892 */         if ($scope52.$wakingSuspension !== undefined) {
+/*   893 */             $wakeFromSuspension();
+/*   894 */             $waking = true;
+/*   895 */         } else {
+/*   896 */             var $args = ((!$kwargs || $kwargs.length === 0) && $posargs.length === 2) ? $posargs : this.$resolveArgs($posargs, $kwargs),
+/*   897 */                 actual = $args[0],
+/*   898 */                 expected = $args[1],
+/*   899 */                 $sup = actual;
+/*   900 */         }
+/*   901 */         while (true) {
+/*   902 */             try {
+/*   903 */                 var $dateNow = Date.now();
+/*   904 */                 if ($dateNow - Sk.execStart > Sk.execLimit) {
+/*   905 */                     throw new Sk.builtin.TimeoutError(Sk.timeoutMsg())
+/*   906 */                 }
+/*   907 */                 if (!$waking && ($dateNow - Sk.lastYield > Sk.yieldLimit)) {
+/*   908 */                     var $susp = $saveSuspension({
+/*   909 */                         data: {
+/*   910 */                             type: 'Sk.yield'
+/*   911 */                         },
+/*   912 */                         resume: function() {}
+/*   913 */                     }, 'src/lib/test/__init__.py', $currLineNo, $currColNo);
+/*   914 */                     $susp.$blk = $blk;
+/*   915 */                     $susp.optional = true;
+/*   916 */                     return $susp;
+/*   917 */                 }
+/*   918 */                 $waking = false;
+/*   919 */                 switch ($blk) {
+/*   920 */                     case 0:
+/*   921 */                         /* --- codeobj entry --- */ if (actual === undefined) {
+/*   922 */                             throw new Sk.builtin.UnboundLocalError('local variable \'actual\' referenced before assignment');
+/*   923 */                         }
+/*   924 */                         if (expected === undefined) {
+/*   925 */                             throw new Sk.builtin.UnboundLocalError('local variable \'expected\' referenced before assignment');
+/*   926 */                         }
+/*   927 */ 
+/*   928 */                         //
+/*   929 */                         // line 20:
+/*   930 */                         //     pass
+/*   931 */                         //     ^
+/*   932 */                         //
+/*   933 */                         $currLineNo = 20;
+/*   934 */                         $currColNo = 4;
+/*   935 */ 
+/*   936 */                         return Sk.builtin.none.none$;
+/*   937 */                         throw new Sk.builtin.SystemError('internal error: unterminated block');
+/*   938 */                 }
+/*   939 */             } catch (err) {
+/*   940 */                 if (!(err instanceof Sk.builtin.BaseException)) {
+/*   941 */                     err = new Sk.builtin.ExternalError(err);
+/*   942 */                 }
+/*   943 */                 err.traceback.push({
+/*   944 */                     lineno: $currLineNo,
+/*   945 */                     colno: $currColNo,
+/*   946 */                     filename: 'src/lib/test/__init__.py'
+/*   947 */                 });
+/*   948 */                 if ($exc.length > 0) {
+/*   949 */                     $err = err;
+/*   950 */                     $blk = $exc.pop();
+/*   951 */                     continue;
+/*   952 */                 } else {
+/*   953 */                     throw err;
+/*   954 */                 }
+/*   955 */             }
+/*   956 */         }
+/*   957 */     });
+/*   958 */     return $scope0;
+/*   959 */ }();
+/*   960 */ $compiledmod;
+-----
+Run time: 0.074s
